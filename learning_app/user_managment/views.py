@@ -163,8 +163,7 @@ def management_home_page():
     # else:
     #     return flask.redirect(url_for("main.index"))
      form_create_user = forms.CreateUser()
-     return flask.render_template("management_home.html", sign_up_form=form_create_user,
-                                     student_list=set_students_as_Choices())
+     return flask.render_template("management_home.html", sign_up_form=form_create_user)
 
 def set_students_as_Choices():
     students = models.User.query.filter_by(role=UserType.STUDENT).all()
