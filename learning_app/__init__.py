@@ -46,6 +46,6 @@ def create_app(default_env = "production"):
         return {
             'UserRoles': enums.UserType
         }
-    db.create_all()
+
     return app
 
