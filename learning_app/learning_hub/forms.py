@@ -39,11 +39,11 @@ class SubNotion(flask_wtf.FlaskForm):
 
 
 class CreateExam(flask_wtf.FlaskForm):
-    type = wtf.SelectField("Exam Type", choices=[(type.name, type.value) for type in enums.ExamType], render_kw={"class": "form-control"})
-    exam_title = wtf.StringField("Exam Title", [valid.InputRequired(message="input is Required")], render_kw={"class": "form-control"})
-    notion = wtf.StringField("Enter Notion", [valid.InputRequired(message="input is Required")], render_kw={"class": "form-control"})
-    sub_notion = wtf.StringField("Enter new sub notion", render_kw={"class": "form-control"})
+    type = wtf.SelectField("Exam Type", choices=[(type.name, type.value) for type in enums.ExamType], render_kw={"class": "form-control","id":"e_type"})
+    exam_title = wtf.StringField("Exam Title", [valid.InputRequired(message="input is Required")], render_kw={"id":"e_title","class": "form-control"})
+    notion = wtf.StringField("Enter Notion", [valid.InputRequired(message="input is Required")], render_kw={"id":"e_notion","class": "form-control"})
+    sub_notion = wtf.StringField("Enter new sub notion", render_kw={"id":"e_snotion","class": "form-control"})
     level = wtf.SelectField("Complexity level", [valid.InputRequired(message="Complexity is required")],
-                            choices=[(type.name, type.value) for type in enums.QuestionComplexity], render_kw={"class": "form-control"})
-    time = wtf.StringField("Exam time", render_kw={"placeholder": "Time in minutes","class": "form-control"})
-    submit = wtf.SubmitField('Register Exam', render_kw={"class": "btn btn-success form-control"})
+                            choices=[(type.name, type.value) for type in enums.QuestionComplexity], render_kw={"id":"e_level","class": "form-control"})
+    time = wtf.StringField("Exam time", render_kw={"id":"e_time","placeholder": "Time in minutes","class": "form-control"})
+    submit = wtf.SubmitField('Register Exam', render_kw={"id":"e_submit","class": "btn btn-success form-control"})

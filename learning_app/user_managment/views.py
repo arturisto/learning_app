@@ -154,16 +154,18 @@ def profile():
 #
 # # # ----------------------start of management area----------------------------------
 @user_blueprint.route("/management")
+@flask_login.login_required
 def management_home_page():
-    # if const_func.check_role(UserType.ADMIN):
-    #     form_create_user = forms.CreateUser()
-    #     return flask.render_template("management_home.html", sign_up_form=form_create_user,
+    if const_func.check_role(UserType.ADMIN):
+        form_create_user = forms.CreateUser()
+        return flask.render_template("management_home.html", sign_up_form=form_create_user,
+                                     student_list=set_students_as_Choices())
+
+    else:
+        return flask.redirect(url_for("main.index"))
+    #  form_create_user = forms.CreateUser()
+    #  return flask.render_template("management_home.html", sign_up_form=form_create_user,
     #                                  student_list=set_students_as_Choices())
-    #
-    # else:
-    #     return flask.redirect(url_for("main.index"))
-     form_create_user = forms.CreateUser()
-     return flask.render_template("management_home.html", sign_up_form=form_create_user)
 
 def set_students_as_Choices():
     students = models.User.query.filter_by(role=UserType.STUDENT).all()
