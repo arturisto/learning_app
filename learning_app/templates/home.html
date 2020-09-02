@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+{% block head %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles/home.css">
+{% endblock %}
+{% block body %}
+<div class = "jumbotron w-75">
+    <div class="header" style="color:white">
+        <h1 class="hi">Hi There!</h1><br />
+        <h1>Welcome to my Learning Platform</h1>
+        <br />
+        <h2> Would you like to learn with me?<br /> Then click <a href="#contact_form" id="click-here" class="click-here" >here</a> to fill a contact form, and someone will get back to you!</h2>
+      </div>
+      <div class = "landing_data mb-5">
+        <ul class="list-group">
+          <li>📚 The largest database of questions - more than 10,000 questions, updated regulary</li>
+          <li>🤓 Most Ad Hoc exams corresponding to the latest content</li>
+          <li>💻 User friendly platform and learning experience </li>
+        </ul>
+
+        </div>
+      <div style="color:white">
+        <h2>Our Testimonials</h2>
+        </Div>
+      <div id = "testimonials" class="row mt-1">
+        <div class="card col-lg-3 col-md-3 col-sm-12 border border-info" style="width: 18rem;">
+          <img class="card-img-top" src="static/images/testimonials/person5.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">John Wick</h5>
+            <p class="card-text">This platform helped me to get over my dog being taken by russion mobesters</p>
+          </div>
+        </div>
+        <div class="card col-lg-3 col-md-3 col-sm-12 border border-info" style="width: 18rem;">
+          <img class="card-img-top" src="static/images/testimonials/person2.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Jean Doe</h5>
+            <p class="card-text">This platform helped me to study and strengthen my skills for upcoming test</p>
+          </div>
+        </div>
+        <div class="card col-lg-3 col-md-3 col-sm-12 border border-info" style="width: 18rem;">
+          <img class="card-img-top" src="static/images/testimonials/person4.jpg" alt="Card image cap">
+          <div class="card-body" style="color:white">
+            <h5 class="card-title" >Plonit Almonit</h5>
+            <p class="card-text">Once I found this platform, I knew that it will help me achieve my goals.Now I work as Full Stack Developer!</p>
+          </div>
+        </div>
+
+      </div>
+    <div  id = "contact_form">
+      <h2 id="contact-form">Contact Form</h2>
+        <form method="POST" action = "{{url_for('main.contact_form')}}">
+          <div class="form-group">
+            <label for="exampleInputName">Full Name</label>
+            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" name="full_name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" name = "email" id="exampleInputEmail1" aria-describedby="emailHelp" >
+          </div>
+          <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" class="form-control" name = "phone" id="phone_number" aria-describedby="phoneHelp" >
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Talk to us</label>
+            <textarea class="form-control" name = "text" id="exampleFormControlTextarea1" rows="3" placeholder="Tell us what's on your mind"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="contact-submit">Submit</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

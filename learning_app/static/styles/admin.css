@@ -1,0 +1,23 @@
+body{
+  background-color: ghostwhite;
+}
+
+.dashboard_header{
+  color:blue;
+  font-style: italic;
+}
+.circle{
+  width:200px;
+  height:200px;
+  border:1px solid black;
+  border-radius:50%;
+    }
+.vertical{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  color:blue;
+  background: rgb(133,251,63);
+  background: radial-gradient(circle, rgba(133,251,63,1) 0%, rgba(199,210,65,1) 100%);
+}

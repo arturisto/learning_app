@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %} Exams {% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="/static/styles/cross_style.css">
+  <style>
+    #multiple-answers>ul{
+      columns:2
+    }
+    #examsubmitted{
+      width:50%;
+    }
+    @media (max-width:700px){
+       .card-body{
+          font-size:0.7rem !important;
+        }
+        #multiple-answers>ul{
+          columns:1
+        }
+        h2{
+          font-size:1.2rem;
+        }
+        #examsubmitted{
+          width:75%;
+        }
+    }
+  </style>
+  <Script>
+    let timed = false;
+    let is_exam = true
+  </Script>
+{% endblock %}
+{% block body %}
+    <div class = "jumbotron">
+
+      {% if session['role']=='Admin' %}
+        <div>
+            <h3>Exams are for students...</h3>
+        </div>
+      {% else %}
+        <div id="choose_exam">
+
+          {% with messages = get_flashed_messages(category_filter=["error"]) %}
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-danger " role="alert">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                    <span aria-hidden="true">&times;</span>
+                 </button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+            <h2> Choose an exam to take</h2>
+              {% for exam in exams %}
+                  <div class="input-group mb-3" >
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <input type="radio" id = "id_{{exam.id}}" value ="{{exam.id}}" name ="exam_radio">
+                    </div>
+                  </div>
+                  <label for=" "id_{{exam.id}}"" class="form-control" >{{exam.exam_title}}</label>
+                </div>
+              {% endfor %}
+              <button type="button" class="btn btn-success"  onclick="exam_load()">Start Exam</button>
+            </div>
+
+            <div class ="d-none" id="exam_setup">
+              <p id="exam_text_header">
+
+                </p>
+
+                  <h3> When you are ready, click on Start Exam to begin</h3>
+              <div>
+                <button type="button" class="btn btn-warning" id = "exam_begin_btn">Start Exam</button>
+              </div>
+
+              </div>
+        <!-------------Exam Body------------------->
+
+        <div class="card d-none" id="main-questions">
+          <div class="card-header">
+            <div class="form-check form-check-inline d-none" id = "timer"></div>
+          </div>
+          <div class="card-body">
+            <h5><span id="notion"></span>, <span id="subnotion"></span><span id="qnumber"></span></h5>
+            <h4 class="card-title"id = "title"></h4>
+            <p class="card-text" id = "body"> </p>
+            <div id = "multiple-answers">
+              <ul style ="list-style:none;">
+                      <li>
+                        <div class="form-check ">
+                          <input class="form-check-input" type="radio" name="answer" id="answer0" value="">
+                          <label class="form-check-label" id ="label_answer0"  for="answer0"></label>
+                      </div>
+                    </li>
+                      <li>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="answer" id="answer1" value="">
+                          <label class="form-check-label" id ="label_answer1" for="answer1"></label>
+                      </div>
+                    </li>
+                      <li>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="answer" id="answer2" value="">
+                          <label class="form-check-label" id ="label_answer2" for="answer2"></label>
+                      </div>
+                    </li>
+                      <li>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="answer" id="answer3" value="">
+                          <label class="form-check-label" id ="label_answer3" for="answer3"></label>
+                      </div>
+                    </li>
+                </ul>
+              </div>
+
+              <div id = "single-answer">
+                <p id="singe-answer-text"></p>
+                  <input class="form-control" type="text" id ="answer-input" placeholder="Enter your answer here">
+              </div>
+            <div class="float-right mt-3">
+              <button class="btn btn-primary mr-3" id="btn_next_question" onclick="get_next_exam_question()">Next Question</button>
+            </div>
+          </div>
+
+
+          </div>
+            <div class="card text-center transition " id="examsubmitted">
+                <div class="card-body">
+                  <h5 class="card-title">Exam is Submited, Good Luck</h5>
+                  <p class="card-text">You will receive and Email when the scores will be published</p>
+                  <form method="POST" action = "{{ url_for('main.index') }}"><button type="submit" class="btn btn-primary">Return to Home Screen</button></form>
+                </div>
+            </div>
+
+          {% endif %}
+          </div>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{url_for('static', filename='hub.js')}}"> </script>
+<script type="text/javascript" src="{{url_for('static', filename='exams.js')}}"> </script>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %} Practice Questions by Notion {% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="/static/styles/cross_style.css">
+{% endblock %}
+{% block body %}
+
+<Script>
+  let timed = confirm("Would you like the questions to be timed?");
+</Script>
+<div class = "jumbotron">
+
+        <form id = "notions-form">
+          <h3>Choose Notions and Sub-notion to practice</h3>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="notions">Notion</label>
+               <select id="notions" class="form-control">
+                 <option selected>Choose...</option>
+                 {% for notion in notions %}
+                  <option>{{notion['notion']}}</option>
+                 {% endfor %}
+               </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="subnotions">Sub Notion</label>
+               <select id="subnotions" class="form-control">
+                 <option selected>Choose...</option>
+                 {% for subnotion in subnotions %}
+                  <option>{{subnotion['sub_notion']}}</option>
+                 {% endfor %}
+               </select>
+            </div>
+            <a href="#" class="btn btn-primary ml-3" id="exe_by_notion_submit" onclick="get_q_by_notions()">Exercise Me</a>
+          </div>
+
+          <div id = "notions-form-message"></div>
+        </form>
+
+
+        <div class="card d-none" id = "questions-main-card">
+          <div class="card-header">
+            <div class="form-check form-check-inline d-none" id = "timer"></div>
+          </div>
+          <div class="card-body">
+            <h5><span id="notion"></span>, <span id="subnotion"></span><span id="qnumber"></span></h5>
+            <h4 class="card-title"id = "title"></h4>
+            <p class="card-text" id = "body"> </p>
+            <div id = "multiple-answers">
+              <ul style ="columns:2;list-style:none;" >
+                      <li>
+                        <div class="form-check ">
+                          <input class="form-check-input" type="radio" name="answer" id="answer0" value="">
+                          <label class="form-check-label" id ="label_answer0"  for="answer0"></label>
+                      </div>
+                    </li>
+                      <li>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="answer" id="answer1" value="">
+                          <label class="form-check-label" id ="label_answer1" for="answer1"></label>
+                      </div>
+                    </li>
+                      <li>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="answer" id="answer2" value="">
+                          <label class="form-check-label" id ="label_answer2" for="answer2"></label>
+                      </div>
+                    </li>
+                      <li>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="answer" id="answer3" value="">
+                          <label class="form-check-label" id ="label_answer3" for="answer3"></label>
+                      </div>
+                    </li>
+                </ul>
+              </div>
+
+              <div id = "single-answer">
+                <p id="singe-answer-text"></p>
+                  <input class="form-control" type="text" id ="answer-input" placeholder="Enter your answer here">
+              </div>
+            <div class="float-right mt-3">
+              <div id = "submit_giveup">
+                <a href="#" class="btn btn-primary mr-3" id="btn_submit">submit</a>
+                <a href="#" class="btn btn-danger" id="btn_giveup">I give up</a>
+              </div>
+              <a href="#" class="btn btn-primary mr-3 d-none" id="btn_next_question" onclick="get_next_question()">Next Question</a>
+
+            </div>
+          </div>
+        </div>
+
+</div>
+<script  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename='hub.js')}}"> </script>
+
+
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% block title %} Content Management {% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="/static/styles/cross_style.css">
+{% endblock %}
+{% block body %}
+<div class = "jumbotron w-75">
+
+<!-----------------------start Tabs --------------------->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" href="#questions" data-toggle="tab" id ="questions-tab"   role="tab">Question Manager</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#exam"  data-toggle="tab" id ="exam-tab" role="tab">Exam Manager</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#tab-notion"  data-toggle="tab" id ="notion-tab" onclick="notion_tab()" role="tab">Notions Manager</a>
+  </li>
+
+</ul>
+<!-----------------------End Tabs --------------------->
+
+
+
+<!-----------------------Start Tab Content --------------------->
+<div class="tab-content " id="myTabContent">
+
+  <div class="tab-pane fade show active" id="questions" role="tabpanel" aria-labelledby="questions-tab">
+
+      <!------Questions ------>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" id="q_crt_btn_show" onclick="q_crt_btn_show()"  data-target="#create-question" aria-expanded="false" aria-controls="collapseExample">
+          Create New Question
+      </button><br><br>
+      <div class="collapse" id="create-question">
+        <h4> Create new Quetsion</h4>
+            <form method="POST" id ="q_crt_form" action="{{url_for('hub.create_quest')}}">
+                  <table>
+                      <tbody>
+                      {% for key in quest_form %}
+                          {% if key.label.text != 'CSRF Token' %}
+                          <tr>
+                              <td>{{key.label}}</td>
+                              <td>{{key()}}</td>
+                          </tr>
+                          {% endif %}
+                      {% endfor %}
+                      </tbody>
+                  </table>
+
+            </form>
+      </div>
+      <!-----------------delete Question----------------->
+      <button class="btn btn-primary" type="button" id="delete_btn"  onclick="q_delete_show()" data-toggle="collapse" data-target="#delete-question" aria-expanded="false" aria-controls="collapseExample">
+          Delete Question
+      </button><br><br>
+        <div class="collapse" id="delete-question">
+          <div id="delete-q1">
+              <h4> Delete Question</h4>
+              <form method="post" action="" id="question-delete">
+                  <br>
+                  <label>Search by Email</label>
+                  <input type="text" class="form-control" id="q_delete" placeholder="Enter title" name = 'string_delete'>
+                  <button class="btn btn-info btn-small" id = "q_delete_btn" onclick="q_delete_srch()">Search</button>
+              </form>
+            </div>
+
+        <div class="collapse d-none" id="delete-selection">
+                <h4> Select Questions to delete</h4>
+
+          <form  id ="form_delete_items"  method="POST" action="{{url_for('hub.delete_questions')}}" >
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Question Body</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Notion</th>
+                  <th scope="col">Sub Notion</th>
+                  <th scope="col">Complexity level</th>
+                </tr>
+              </thead>
+              <tbody id = "form_delete_body">
+
+              </tbody>
+              </table>
+             <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+        </div>
+
+  </div>
+  <!-------------------------Exams------------------------------->
+  <div class="tab-pane fade" id="exam" role="tabpanel" aria-labelledby="exam-tab">
+
+        <!------------crate exam---------------->
+        <button class="btn btn-primary" type="button" id="e_create_show" onclick="e_create_show()" data-toggle="collapse" data-target="#create-exam" aria-expanded="false" aria-controls="collapseExample">
+            Create New Exam
+        </button><br><br>
+        <div class="collapse" id="create-exam">
+          <h4> Create new Exam</h4>
+              <form method="POST" action="{{url_for('hub.create_exam')}}">
+                <table>
+                    <tbody  id = "form_create_exam_body">
+                    {% for key in exam_form %}
+                        {% if key.label.text != 'CSRF Token' %}
+                        <tr>
+                            <td>{{key.label}}</td>
+                            <td>{{key()}}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+              </form>
+        </div>
+
+        <!------------Delete---------------->
+        <button class="btn btn-primary collapsed" type="button" onclick="e_delete_show()" id="e_delete_show" data-toggle="collapse" data-target="#delete-exam" aria-expanded="false" aria-controls="collapseExample">
+            Delete an Exam
+        </button><br><br>
+        <div class="collapse" id="delete-exam">
+            <div class="collapse show" id ="delete-exam-search">
+                <h4> Delete Exam</h4>
+                <br>
+                <label>Search by title</label>
+                <input type="text" class="form-control" id="e_delete" placeholder="Enter title" name = 'string_delete'>
+                <button class="btn btn-info btn-small" id = "e_delete_btn" onclick="e_delete_btn()">Search</button>
+            </div>
+        <!-----------------delete exam--------------------->
+          <div class = "collapse" id="delete_exam_selection">
+            <h4> Select exams to delete</h4>
+
+                <form  id ="form_delete_exams"  method="POST" action="{{url_for('hub.delete_exam')}}" >
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">ID</th>
+                          <th scope="col">Title</th>
+                          <th scope="col">Type</th>
+                          <th scope="col">Notion</th>
+                          <th scope="col">Sub Notion</th>
+                          <th scope="col">Complexity level</th>
+                        </tr>
+                      </thead>
+                      <tbody id = "form_delete_exam_body">
+
+                      </tbody>
+                    </table>
+                   <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+
+        </div>
+
+          <!------------------assign exam to class------------->
+          <button class="btn btn-primary collapsed" type="button" onclick="get_exm_and_cls_to_assign()" id="e_assign_show" data-toggle="collapse" data-target="#assign-exam" aria-expanded="false" aria-controls="collapseExample">
+              Assign Exam
+          </button><br><br>
+          <div class="collapse" id="assign-exam">
+            <form  id ="form_assign_exams_cls" method="POST" action="{{url_for('hub.assign_xm_to_cls')}}">
+              <div class="form-group">
+                <select id="classes" class="form-control" name="exam" onchange="prnt_assign_exms_to_cls()">
+                  <option selected id = "assing_choose_select">Choose class...</option>
+                </select>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Mark to add</th>
+                      <th scope="col">Exam Name</th>
+                      <th scope="col">Exam type</th>
+                      <th scope="col">Exam level</th>
+                    </tr>
+                </thead>
+                <tbody id = "tbl_exm_to_cls">
+
+                </tbody>
+                  </table>
+                   <button type="submit" class="btn btn-info btn-sm">submit</button>
+
+              </form>
+          </div>
+
+    </div>
+
+
+ <!-- -------------------Notions manager--------------- -->
+
+
+    <div class="tab-pane fade" id="tab-notion" role="tabpanel" aria-labelledby="notion-tab">
+          <!-- -------------show notions ------------ -->
+
+      <div class="" id="notions-show">
+        <h4> Available Notions</h4>
+
+        <form method="POST" action="{{url_for('hub.delete_notions')}}">
+              <table class = "table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="w-25">Mark to delete</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Name</th>
+                    </tr>
+                  </thead>
+                  <tbody  id = "notions_body">
+
+                  </tbody>
+              </table>
+             <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+      </div>
+    </div>
+
+ <!----------------end of notions manager------->
+
+
+  </div>
+
+
+<!-----------------------End Tab Content --------------------->
+
+  </div>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{url_for('static', filename='content.js')}}"> </script>
+
+{% endblock %}

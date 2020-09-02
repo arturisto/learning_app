@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+{% block head %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/cross_style.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/admin.css')}}">
+{% endblock %}
+{% block body %}
+  <div class = "jumbotron w-75">
+
+      {% if session['role'] == 'Admin' %}
+          <h3 class="dashboard_header">Dashboard</h3>
+          <div class = "row justify-content-center">
+            <div class="col-sm-12 col-md-4">
+              <div class = "circle vertical">
+                <div class=" ">
+                  <h1 class="card-text"id = "studnets"></h1>
+                </div>
+                <div>
+                  <i>Enrolled Students</i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-4">
+              <div class = "circle vertical">
+                <div class=" ">
+                  <h1 class="card-text"id = "classes"></h1>
+                </div>
+                <div>
+                <i>  Classes</i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class = "circle vertical">
+                <div class=" ">
+                  <h1 class="card-text"id = "questions"></h1>
+                </div>
+                <div>
+                <i>  Questions Created</i>
+                </div>
+              </div>
+            </div>
+            </div>
+          <p id= "admin"></p>
+
+          <div class= "row justify-content-center">
+
+
+                <div id="q2n_chart_div"></div>
+                <div class="row">
+                  <div class=col-6" id="score2exam_chart"></div>
+                  <div class=col-6" id="stdnt2class_chart"></div>
+                </div>
+            </div>
+          {% endif %}
+
+
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{url_for('static', filename='admin.js')}}"></script>
+<script>
+  $(document).ready(function(){
+      if('{{session["role"]}}'=="Admin" || '{{session["role"].value}}'=='Admin' ){
+
+          run_dashboard();
+      }
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+body{
+  background-image:url("https://www.stxnext.com/hubfs/How%20to%20Hire%20Software%20Developers%205%20Reasons%20Why%20Soft%20Skills%20Are%20Essential%20in%20Your%20Developers.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.header{
+  margin-top:5em;
+  margin-bottom:3em;
+  font-family: 'Raleway', sans-serif;
+
+}
+
+.jumbotron{
+  background-color: transparent;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+}
+.click-here{
+  animation: textsize-change 1s infinite;
+  text-decoration: none;
+  color: inherit;
+
+}
+@keyframes textsize-change {
+      0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(245, 245, 147, 1);
+
+    }
+
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(245, 245, 147, 0);
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(245, 245, 147, 0);
+    }
+}
+.list-group{
+   list-style-type: none;
+   color:white;
+   font-family: 'Raleway', sans-serif;
+   font-size:1.2em;
+}
+.list-group>li{
+  margin-top:15px;
+}
+.list-group>li :before{
+
+}
+.card-img-top{
+  border-radius:50%;
+}
+#testimonials{
+  justify-content:space-between
+}
+#testimonials>.card{
+  background-color:transparent;
+  color:white;
+}
+#contact_form{
+  margin-top:50px;
+  color:ghostwhite;
+  width:50%;
+}
+.form-group>label{
+  font-size:1.5em;
+}
+#contact-submit{
+  background-color:black;
+}
+
+
+@media (max-width:800px){
+  .header>h1 {
+      font-size:1.5rem;
+    }
+  .header>h2 {
+      font-size:1.0rem;
+    }
+  .landing_data{
+      font-size:0.8rem;
+      }
+
+  #contact_form{
+    width:100%;
+  }
+}

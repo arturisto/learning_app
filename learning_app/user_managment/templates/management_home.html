@@ -1,0 +1,250 @@
+ {% extends 'base.html' %}
+
+{% block title %} Sign Up {% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="/static/styles/cross_style.css">
+{% endblock %}
+{% block body %}
+
+<div class = "jumbotron w-75">
+  {% with messages = get_flashed_messages(with_categories=true,category_filter=["success","fail"]) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if "fail" == category %}
+          <div class="alert alert-danger " role="alert">
+        {% elif "success" == category %}
+          <div class="alert alert-success " role="alert">
+        {% endif %}
+          {{message}}
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+        <span aria-hidden="true">&times;</span>
+     </button>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+<!-----------------------start Tabs --------------------->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#users" data-toggle="tab" id ="users-tab"   role="tab">User Management</a>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#class"  data-toggle="tab" id ="test-tab" role="tab">Class Management</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#"  data-toggle="tab" id ="not-tab" role="tab">Notifications</a>
+          </li> -->
+
+        </ul>
+        <!-----------------------End Tabs --------------------->
+
+
+
+        <!-----------------------Start Tab Content --------------------->
+        <div class="tab-content" id="myTabContent">
+
+          <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+              <br>
+
+              <!---create user---->
+              <button class="btn btn-primary" type="button" data-toggle="collapse" onclick="user_view_manage('create_user_form')" data-target="#create_user_form" aria-expanded="false" aria-controls="collapseExample">
+                  Create new User
+              </button><br><br>
+              <div class="collapse" id="create_user_form">
+                    <form method="post" action="{{url_for('users.signup')}}">
+                      <h4> Create new User</h4>
+                      <table >
+                          <tbody>
+                          <tr>
+
+                              <td>{{ sign_up_form.name.label }}</td>
+                              <td>{{ sign_up_form.name(class_="form-control") }}</td>
+
+                          </tr>
+                          <tr>
+                              <td>{{ sign_up_form.email.label }}</td>
+                              <td>{{ sign_up_form.email(class_="form-control") }}</td>
+                          </tr>
+                           <tr>
+                              <td>{{ sign_up_form.username.label }}</td>
+                              <td>{{ sign_up_form.username(class_="form-control") }}</td>
+                          </tr>
+                           <tr>
+                              <td>{{ sign_up_form.password.label }}</td>
+                              <td>{{ sign_up_form.password(class_="form-control") }}</td>
+                          </tr>
+                          <tr>
+                              <td>{{ sign_up_form.confirm_pass.label }}</td>
+                              <td>{{ sign_up_form.confirm_pass(class_="form-control") }}</td>
+                          </tr>
+                          <tr>
+                              <td>{{ sign_up_form.role.label }}</td>
+                              <td>{{ sign_up_form.role(class_="form-control") }}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                      {{ sign_up_form.submit(id= "usr_crt_btn", class_="btn btn-success") }}
+                  </form>
+              </div>
+                        <!---update user---->
+              <button class="btn btn-primary" type="button" data-toggle="collapse" onclick="user_view_manage('update_user_form')" data-target="#update_user_form" aria-expanded="false" aria-controls="collapseExample">
+                  Update user
+              </button>
+
+              <div class="collapse" id="update_user_form">
+                    <div  id="u_user_find">
+                        <br>
+                        <label>Search by Email</label>
+                        <input type="email" class="form-control" id="u_update_email" placeholder="Email" name="email">
+                        <button type="submit" class="btn btn-info btn-small" id = "upd_search_btn" onclick="upd_user_search()">Search</button>
+                    </div>
+
+                    <form method="post" action="{{url_for('users.update_user')}}" class = "d-none" id="u_update_form">
+                      <h4> Update User</h4>
+                      <table >
+                          <tbody>
+                          <tr>
+                              <td>{{ sign_up_form.name.label }}</td>
+                              <td>{{ sign_up_form.name(id="name_update") }}</td>
+                          </tr>
+                          <tr>
+                              <td>{{ sign_up_form.email.label }}</td>
+                              <td>{{ sign_up_form.email(id="email_update") }}</td>
+                          </tr>
+                           <tr>
+                              <td>{{ sign_up_form.username.label }}</td>
+                              <td>{{ sign_up_form.username(id="user_update") }}</td>
+                          </tr>
+                          <tr>
+                              <td>{{ sign_up_form.role.label }}</td>
+                              <td>{{ sign_up_form.role(id="role_update") }}</td>
+                          </tr>
+                           <input type="hidden" id="u_user_id" name="user_id">
+                          </tbody>
+                      </table>
+                      {{ sign_up_form.submit(value="update", id = "updt_btn") }}
+                  </form>
+               </div> <br><br>
+                              <!---Delete user---->
+              <button class="btn btn-primary" type="button" data-toggle="collapse" onclick="user_view_manage('delete_user_form')" data-target="#delete_user_form" aria-expanded="false" aria-controls="collapseExample">
+                  Delete user
+              </button>
+                <div class="collapse" id="delete_user_form">
+                    <form method="post" action="{{url_for('users.delete_user')}}" id="d_user_find">
+                        <br>
+                        <label>Search by email</label>
+                        <input type="email" class="form-control" id="user_delete_email" name = "d_email" placeholder="Email">
+                        <button class="btn btn-info btn-small" id = "delete_btn">Delete</button>
+                    </form>
+                </div>
+
+          </div>
+        <!------------------class management------------------->
+          <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="class-tab">
+            <br>
+              <!------------------create Class----------------->
+                  <button class=" btn btn-primary" type="button" data-toggle="collapse" onclick="class_form()" data-target="#create_class_form" aria-expanded="false" aria-controls="collapseExample">
+                      Create new Class
+                  </button><br><br>
+
+                  <div class="collapse" id="create_class_form">
+                        <form method="post" action="{{url_for('users.create_new_class')}}" >
+                          <h4> Create new Class and assign students</h4>
+                          <table >
+                              <tbody>
+                                <tr id = "class-name-group" class="form-group">
+                                    <td><label for="class-name">Class Name</label></td>
+                                    <td><input type = "text" class="form-control" id="class-name" placeholder="Enter class name" name ="class_name"/></td>
+                                </tr>
+                                <tr>
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Student's Name</th>
+                                        <th scope="col">Student's Email</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id = "form-add-s-to-class">
+
+                                    </tbody>
+                                    </table>
+                                  </tr>
+                              </tbody>
+
+                          </table>
+
+                        <button type="submit" class="btn btn-info mb-2">Create Class</button>
+                      </form>
+                  </div>
+
+                  <!-----show class---->
+
+                  <button class="btn btn-primary" onclick="show_class_view_manage()" type="button" data-toggle="collapse" data-target="#update_class_form" aria-expanded="false" aria-controls="collapseExample">
+                  Remove Students from Class
+                  </button><br><br>
+                  <div class="collapse" id="update_class_form">
+                        <form method="post" action="" id="class_find_form">
+                            <br>
+                            <label>Search by full class name</label>
+                            <input type="text" class="form-control" id="class_search_input" placeholder="Enter Class Name" name="class_name">
+                            <button type="submit" class="btn btn-info btn-small" id = "search_class_btn" onclick="search_class()">Search</button>
+                        </form>
+                        <div id = "class_show" id="upd_cls" class="d-none">
+                          <h4></h4>
+                          <form method="post" action="/users/delete_student" id="delete_student_form">
+                              <table class="table">
+                                <thead>
+                                <tr>
+                                  <th scope="col"></th>
+                                  <th scope="col">Student's Name</th>
+                                  <th scope="col">Student's Email</th>
+                                </tr>
+                              </thead>
+                              <tbody id = "studnets_in_class">
+                              </tbody>
+                            </table>
+                            <input type="hidden" id="cls_name_hidden" name="class_name"></input>
+                            <button type="submit" class="btn btn-info btn-small" id="delete_student_from_class">Delete marked Students</button><br/>
+                            <small> Empty class will be automaticly deleted</small>
+                            </form>
+                          </div>
+
+                  </div>
+
+
+
+          </div>
+        </div>
+  </div>
+<!-----------------------End Tab Content --------------------->
+
+<!--------------scripts------------------->
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename='users.js')}}"> </script>
+
+<Script>
+  function class_form(){
+    $("#form-add-s-to-class").empty()
+    check_toggle("update_class_form")
+    student_list = {{student_list|safe }}
+    var newRow = ""
+    for(var key in student_list){
+        newRow +="<tr><td><input type='checkbox'class='form-check-input' value='"+key+"' name='student_"+key+"'</td>"+
+           "<td>"+student_list[key][0]+"</td>"+
+           "<td>"+student_list[key][1]+"</td>"
+     }
+     $("#form-add-s-to-class").append(newRow)
+  }
+
+</Script>
+{% endblock %}

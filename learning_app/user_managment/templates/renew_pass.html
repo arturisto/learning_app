@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Password Renewal {% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static',filename='/styles/cross_style.css')}}">
+{% endblock %}
+
+{% block body %}
+
+<div class = "jumbotron">
+
+
+  {% with messages = get_flashed_messages(category_filter=["user"]) %}
+    {% if messages %}
+    <div class="alert alert-danger " role="alert">
+        {{messages[0]}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+        <span aria-hidden="true">&times;</span>
+     </button>
+      </div>
+    {% endif %}
+  {% endwith %}
+    <h3>Password Renew:</h3>
+    <form method="post" action="{{url_for('users.send_pass_link')}}">
+      <div class="form-group">
+        <label for="email">Enter your email</label>
+        <input type="email" class="form-control" id="email" name ="email" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

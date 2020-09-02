@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Exams {% endblock %}
+{% block head %}
+<style>
+  img{
+    width:50%;
+    height:50%;
+    left: 25%;
+    position: absolute;
+    top: 25%;
+  }
+
+  @media (max-width:800){
+    img{
+      height:25%;
+
+    }
+
+  }
+</style>
+{% endblock %}
+{% block body %}
+<div id = "body">
+  <img src = '{{url_for('static', filename='images/und_const.jpg')}}' />
+  </div>
+
+{% endblock %}
