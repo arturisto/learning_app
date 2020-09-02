@@ -158,8 +158,8 @@ def profile():
 def management_home_page():
     if const_func.check_role(UserType.ADMIN):
         form_create_user = forms.CreateUser()
-        return flask.render_template("management_home.html", sign_up_form=form_create_user,
-                                     student_list=set_students_as_Choices())
+        return flask.render_template("management_home.html", sign_up_form=form_create_user)
+
 
     else:
         return flask.redirect(url_for("main.index"))
@@ -174,6 +174,11 @@ def set_students_as_Choices():
         if not s.class_id:
             students_to_assign[s.id] = [s.name, s.email]
     return students_to_assign
+
+@user_blueprint.route("/get_students_for_class", methods=['POST', "GET"])
+def get_students_for_class():
+
+    return set_students_as_Choices()
 
 
 @user_blueprint.route("/find_user", methods=['POST', "GET"])
