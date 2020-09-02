@@ -145,7 +145,7 @@
           <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="class-tab">
             <br>
               <!------------------create Class----------------->
-                  <button class=" btn btn-primary" type="button" data-toggle="collapse" onclick="class_form()" data-target="#create_class_form" aria-expanded="false" aria-controls="collapseExample">
+                  <button class=" btn btn-primary" type="button" data-toggle="collapse" onclick="class_form_crt()" data-target="#create_class_form" aria-expanded="false" aria-controls="collapseExample">
                       Create new Class
                   </button><br><br>
 
@@ -232,19 +232,4 @@ crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="{{url_for('static', filename='users.js')}}"> </script>
 
-<Script>
-  function class_form(){
-    $("#form-add-s-to-class").empty()
-    check_toggle("update_class_form")
-    student_list = {{student_list|safe }}
-    var newRow = ""
-    for(var key in student_list){
-        newRow +="<tr><td><input type='checkbox'class='form-check-input' value='"+key+"' name='student_"+key+"'</td>"+
-           "<td>"+student_list[key][0]+"</td>"+
-           "<td>"+student_list[key][1]+"</td>"
-     }
-     $("#form-add-s-to-class").append(newRow)
-  }
-
-</Script>
 {% endblock %}

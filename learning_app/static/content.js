@@ -172,7 +172,6 @@ function clear_e_delete(){
 
 
 function reset_create_q_view(){
-  $("#q_crt_form").trigger("reset")
   if ($("#questions-tab").hasClass("active")){
     // hide the multiple choice wrong answers when choosing a single entry exercise
       if ($("#qtype").children("option:selected").val() =="SINGLE"){
@@ -287,6 +286,27 @@ function notion_tab(){
           });
           $("#notions_body").append(newRow)
           }
+  });
+
+}
+function class_form_crt(){
+
+  event.preventDefault();
+  $.ajax({
+    type : 'POST',
+    url : "/hub/get_students_for_class",
+    contentType: 'application/json;charset=UTF-8',
+    success: function(response) {
+      var newRow = ""
+      for(var key in response){
+          newRow +="<tr><td><input type='checkbox'class='form-check-input' value='"+key+"' name='student_"+key+"'</td>"+
+             "<td>"+student_list[key][0]+"</td>"+
+             "<td>"+student_list[key][1]+"</td>"
+       }
+       $("#form-add-s-to-class").append(newRow)
+
+
+    }
   });
 
 }
