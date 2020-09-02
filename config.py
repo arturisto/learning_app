@@ -23,7 +23,8 @@ class ProdConfig(Config):
 
     # SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "app.db")
     # SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
-    SQLALCHEMY_DATABASE_URI ='postgresql://postgres:1@localhost:5432/app_db'
+    # SQLALCHEMY_DATABASE_URI ='postgresql://postgres:1@localhost:5432/app_db'
+    SQLALCHEMY_DATABASE_URI =os.environ['DATABASE_URL']
     SECRET_KEY = "1265ewqtfsdaxvgz9287ynx918u2nx8172m301u9"
 
     MAIL_SERVER = "smtp.gmail.com"
