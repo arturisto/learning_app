@@ -146,3 +146,25 @@ function insert_error(msg,elem_before_error){
   $(html_to_add).insertAfter("#"+elem_before_error)
 
 }
+
+function class_form_crt(){
+
+  event.preventDefault();
+  $.ajax({
+    type : 'POST',
+    url : "/hub/get_students_for_class",
+    contentType: 'application/json;charset=UTF-8',
+    success: function(response) {
+      var newRow = ""
+      for(var key in response){
+          newRow +="<tr><td><input type='checkbox'class='form-check-input' value='"+key+"' name='student_"+key+"'</td>"+
+             "<td>"+student_list[key][0]+"</td>"+
+             "<td>"+student_list[key][1]+"</td>"
+       }
+       $("#form-add-s-to-class").append(newRow)
+
+
+    }
+  });
+
+}
