@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT main-api:app2
+web: flask db upgrade; gunicorn wsgi:app2
