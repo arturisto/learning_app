@@ -249,6 +249,7 @@ function get_exm_and_cls_to_assign(){
 
 function prnt_assign_exms_to_cls(){
   event.preventDefault();
+  $("#tbl_exm_to_cls").empty()
   let selected_cls = $("#classes option:selected").val()
   let newRow=""
   $("#tbl_exm_to_cls").empty()
