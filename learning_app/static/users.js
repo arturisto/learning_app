@@ -148,7 +148,6 @@ function insert_error(msg,elem_before_error){
 }
 
 function class_form_crt(){
-
   event.preventDefault();
   $.ajax({
     type : 'POST',
@@ -162,9 +161,6 @@ function class_form_crt(){
              "<td>"+student_list[key][1]+"</td>"
        }
        $("#form-add-s-to-class").append(newRow)
-
-
     }
   });
-
 }
