@@ -1,6 +1,6 @@
 let questions=[]  // global variable for questions from the DB - restarted upon page refresh
 let current_question
-let correct = "<span 'correct' style='color:green; font-weight: bold;'> Correct!</span>" //global correct
+let correct = "<span id='correct' style='color:green; font-weight: bold;'> Correct!</span>" //global correct
 let incorrect = "<span id = 'incorrect' style='color:red; font-weight: bold;'> Incorrect!</span>" // global incorrect
 let interval
 const multi = "Multiple Choice Question"
