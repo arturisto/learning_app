@@ -157,8 +157,8 @@ function class_form_crt(){
       var newRow = ""
       for(var key in response){
           newRow +="<tr><td><input type='checkbox'class='form-check-input' value='"+key+"' name='student_"+key+"'</td>"+
-             "<td>"+student_list[key][0]+"</td>"+
-             "<td>"+student_list[key][1]+"</td>"
+             "<td>"+response[key][0]+"</td>"+
+             "<td>"+response[key][1]+"</td>"
        }
        $("#form-add-s-to-class").append(newRow)
     }
