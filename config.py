@@ -32,7 +32,7 @@ class ProdConfig(Config):
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
     MAIL_USERNAME = 'arthurruthenberg@gmail.com'
-    MAIL_PASSWORD = 'b3cFlJ9Y'
+    MAIL_PASSWORD = 'pe35GfoQ'
 
 config = {
     "development": DevConfig,
