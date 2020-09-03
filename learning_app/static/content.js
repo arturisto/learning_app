@@ -240,15 +240,14 @@ function get_exm_and_cls_to_assign(){
         exams_to_class = response
         let cls_as_options=""
         for(exam in exams_to_class){
-          cls_as_options+="<option value='"+exam+"' id='"+exam+"'>"+exams_to_class[exam][0]+"</option>"
-        $("#classes").append(cls_as_options)
+          cls_as_options="<option value='"+exam+"' id='"+exam+"'>"+exams_to_class[exam][0]+"</option>"
+          $("#classes").append(cls_as_options)
         }
       }
   });
 }
 
 function prnt_assign_exms_to_cls(){
-  event.preventDefault();
   $("#tbl_exm_to_cls").empty()
   let selected_cls = $("#classes option:selected").val()
   let newRow=""
