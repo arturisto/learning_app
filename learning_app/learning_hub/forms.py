@@ -20,7 +20,7 @@ class CreateQuestion(flask_wtf.FlaskForm):
     notion = wtf.StringField("Notion", render_kw={"class": "form-control"})
     sub_notion = wtf.StringField("Sub Notion", render_kw={"class": "form-control"})
     is_exam = wtf.BooleanField("Is Exam", render_kw={"class": "form-control"})
-    is_test_exam = wtf.BooleanField("Is Test Exam")
+    is_test_exam = wtf.BooleanField("Is Test Exam", render_kw={"class": "form-control"})
     level = wtf.SelectField("Complexity level", [valid.InputRequired(message="Complexity is required")],
                             choices=[(type.name, type.value) for type in enums.QuestionComplexity], render_kw={"class": "form-control"})
     time_for_completion = wtf.FloatField("Time for completion",
