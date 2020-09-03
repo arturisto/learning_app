@@ -151,7 +151,7 @@ function class_form_crt(){
   event.preventDefault();
   $.ajax({
     type : 'POST',
-    url : "/hub/get_students_for_class",
+    url : "/users/get_students_for_class",
     contentType: 'application/json;charset=UTF-8',
     success: function(response) {
       var newRow = ""
