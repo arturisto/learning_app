@@ -148,6 +148,7 @@ function insert_error(msg,elem_before_error){
 }
 
 function class_form_crt(){
+  $("#form-add-s-to-class").empty()
   event.preventDefault();
   $.ajax({
     type : 'POST',
