@@ -47,6 +47,13 @@ Features
     8. Classifying of practice by complexity level (more XP for more complexity)
     9. Group olympiad system
     10. Load exercises from excel sheet
+    
+    
+    
+    For play around visit
+    https://yael-app.herokuapp.com/
+    user: admin
+    pass:123
       
         
 
